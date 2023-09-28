@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ftcoza/public_html/
+    - /bin/cp -R times $DEPLOYPATH
+    - /bin/cp *.* $DEPLOYPATH
+    
