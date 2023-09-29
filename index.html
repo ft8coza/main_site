@@ -1,184 +1,781 @@
 <!DOCTYPE html>
-<html>
-<head>
-    
-    <meta charset="utf-8"/>
-    
-    <script>
-        var current_date;
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      FT8: Tailored Web Solutions for Small to Medium-Sized Enterprises
+    </title>
+    <!-- Meta Description -->
+    <meta
+      name="description"
+      content="FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses. Our team of expert designers and developers works closely with clients to ensure that their website reflects their unique brand and effectively communicates their message to their target audience. We are committed to providing our clients with a seamless and stress-free experience, from the initial design phase to the final launch of their website. Contact us today to see how we can help take your business to the next level."
+    />
 
-        function init() {
-            // This code runs only at page load 
+    <!-- Open Graph and Twitter Card Meta Tags -->
+    <meta property="og:url" content="https://FT8.co.za/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="FT8 Web Design Services" />
+    <meta
+      property="og:description"
+      content="FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses."
+    />
+    <meta
+      property="og:image"
+      content="https://FT8.co.za/assets/img/banner.webp"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FT8 Web Design Services" />
+    <meta
+      name="twitter:description"
+      content="FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses."
+    />
+    <meta
+      name="twitter:image"
+      content="https://FT8.co.za/assets/img/banner.webp"
+    />
+    <meta
+      name="keywords"
+      content="FT8, Web Design, Small Business Websites, Custom Web Solutions, Landing Pages, Website Development, Business Branding, Web Maintenance"
+    />
+    <meta name="robots" content="index, follow" />
+    <!-- Favicon -->
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon" />
 
-            // Try to guess theme preference 
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                dark_theme();
-            } else {
-                light_theme();
-            }
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
 
-            // Check if sfw query parameter passed
-            var queries = new URLSearchParams(window.location.search);
-            var sfw = queries.has('sfw') && ['yes', 'true', '1'].includes(queries.get('sfw').toLowerCase());
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://FT8.co.za/" />
 
-            if (sfw) {
-                try {
-                    document.getElementById('sfw_toggle').innerHTML = '<a href="/">Include all quotes</a>';
-                } catch (e) {
-                    console.log(e);
-                }
-            }
-
-            startTime(sfw);
-        }
-
-        function loadFile(time) {
-            var timeStamp = timeToTimecode(time);
-            return fetch("times/" + timeStamp + ".json")
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        return loadFile(oneMinuteAgo(time));
-                    }
-                })
-                .catch(e => console.log("error"));
-
-        }
-
-        function updateText(time, sfw) {
-            // This runs every minute
-
-            // Load JSON file
-            loadFile(time).then((lit_json) => {
-
-                // Filter SFW if needed
-                if (sfw) {
-                    lit_json = lit_json.filter(item => item.sfw === 'yes');
-                }
-
-                if (lit_json.length === 0) {
-                    return updateText(oneMinuteAgo(time), sfw);
-                }
-
-                // select single random text
-                var lit_json_single = lit_json[Math.floor(Math.random() * lit_json.length)]
-
-                // get quote_len
-                var quote_len = (lit_json_single.quote_first +
-                                 lit_json_single.quote_time_case +
-                                 lit_json_single.quote_last)
-                                 .length
-
-                // Write to HTML
-                //document.getElementById('time').innerHTML = timeCode;     // Show time
-                try {
-                    document.getElementById('lit_quote').innerHTML =
-                        lit_json_single.quote_first + '<em>' +
-                        lit_json_single.quote_time_case + '</em>' +
-                        lit_json_single.quote_last;
-                    document.getElementById('book').innerHTML = lit_json_single.title;
-                    document.getElementById('author').innerHTML = lit_json_single.author;
-
-                    // set fontsize according to length
-                    // Equation to make fontsize match
-                    // y = 6.190864 - 0.01211676*x + 0.00001176814*x^2 - 1.969435e-9*x^3, where x is quote_len
-                    document.getElementById('lit_quote').style.fontSize =
-                    ((6.000864 - 0.01211676 * quote_len + 0.00001176814 * quote_len ** 2 - 1.969435e-9 * quote_len ** 3) + "vw");
-
-                } catch (e) {
-                    console.log(e);
-                }
-
-            });
-        }
-        function startTime(sfw) {
-            // This code runs every second
-            // could be optimized to check time in miliseconds and set timeout to when minute will change next time.
-            
-            var time = new Date();
-            if (current_date !== undefined
-                && current_date.getMinutes() === time.getMinutes()) {
-                var t = setTimeout(startTime, 1000);
-                return;
-            }
-
-            current_date = time;
-
-            //Test longest (20:15)
-            //Test shortest (08:51)
-            //time = new Date('Tue Nov 16 2021 22:39:00'); // Test missing quote
-            //time = new Date('Tue Nov 16 2021 00:05:00'); // Test nsfw time
-
-            updateText(time, sfw);
-
-            // Timeout
-            var t = setTimeout(startTime, 1000);
-        }
-
-        function oneMinuteAgo(time) {
-            return new Date(time - 60000) // Subtract one minute
-        }
-
-        function timeToTimecode(time) {
-            var h = time.getHours();
-            var m = time.getMinutes();
-            // var s = time.getSeconds();
-            h = checkTime(h);
-            m = checkTime(m);
-            // s = checkTime(s);
-            return h + "_" + m;  // fixed for windows compatibility
-
-        }
-
-        function checkTime(i) {
-            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
-            return i;
-        }
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "FT8 Web Design Services",
+        "url": "https://FT8.co.za/",
+        "description": "FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses."
+      }
     </script>
-    <link rel="stylesheet" href="styles.css">
-    <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet'>
-    <script src="theme.js"></script>
+  </head>
 
-    <title>Literature Clock</title>
+  <body>
+    <header class="text-white fixed-top py-2">
+      <nav class="container d-flex justify-content-between align-items-center">
+        <h1 class="m-0">FT8 Web Design</h1>
+        <ul class="list-unstyled m-0">
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#hero">Home</a>
+          </li>
+          <li class="d-inline-block me-3">
+            <a href="#services" class="text-white text-decoration-none"
+              >Services</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#about-us"
+              >About Us</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#why-website"
+              >Why Website</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#our-process"
+              >Our Process</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#portfolio"
+              >Portfolio</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#contact"
+              >Contact Us</a
+            >
+          </li>
+          <li class="d-inline-block me-3">
+            <a class="text-white text-decoration-none" href="#faq">FAQ</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-</head>
+    <section
+      id="hero"
+      class="bg-white d-flex align-items-center justify-content-center py-5 text-center"
+    >
+      <div class="container">
+        <h1 class="text-white font-weight-bold py-2">
+          Welcome to FT8 Web Design Services
+        </h1>
+        <p class="text-white font-weight-bold py-2">
+          We create beautiful and functional websites for your business
+        </p>
+        <a href="#contact" class="btn">Contact Us</a>
+      </div>
+    </section>
 
-<body onload="init()">
-
-    <!-- <div id="time"></div> -->
-
-    <div id="main_text">
-        <blockquote id="lit_quote"></blockquote>
-        <cite>
-            -
-            <span id="book"></span>,
-            <span id="author"></span>
-        </cite>
-    </div>
-
-    <div id="buttom">
-        <div id="github">
-            <a href="https://github.com/JohannesNE/literature-clock" target="_blank">GitHub</a>
+    <section id="services" class="bg-white py-5">
+      <div class="container">
+        <h2 class="text-center">Our Services</h2>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-4">
+          <div class="service text-center">
+            <i class="fas fa-paint-brush fa-2x mb-3"></i>
+            <!-- FontAwesome globe icon -->
+            <h3>Web Design</h3>
+            <p>
+              We design modern and responsive websites tailored to your needs.
+            </p>
+          </div>
         </div>
-        <span id="based_on">
-            Based on work and idea by
-            <a href="http://www.eerlijkemedia.nl/" target="_blank">Jaap Meijers</a> and
-            <a href="http://litclock.mohawkhq.com/" target="_blank">The Guardians</a>
-        </span>
-        
-        <span id="sfw_toggle">
-            <a href="/?sfw=yes">Skip quotes marked NSFW</a>
-        </span>
-        <span>
-            <a id="toggle-theme" onclick="toggle_theme()" href="#">Dark Theme</a>
-        </span>
-        <span>
-            <a href="www.bezuidenhout.net.za" target="_blank">Deployed by Lee</a>
-        </span>
-    </div>
+        <div class="col-md-4">
+          <div class="service text-center">
+            <i class="fas fa-globe fa-2x mb-3"></i>
+            <!-- FontAwesome globe icon -->
+            <h3>Email & Website hosting</h3>
+            <p>
+              We host your website to ensure maximum uptime and availability
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service text-center">
+            <i class="fas fa-wrench fa-2x mb-3"></i>
+            <!-- FontAwesome globe icon -->
+            <h3>Website Maintenance</h3>
+            <p>
+              We offer ongoing support and maintenance to keep your site
+              up-to-date.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- About Us Section -->
+    <section
+      id="about-us"
+      class="about-section"
+      data-bs-smooth-scroll="true"
+      data-bs-target="#navcol-5"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="section-heading">About Us</div>
+            <p class="section-text">
+              At FT8, we are driven by a passion for fostering the growth and
+              success of businesses. Our core mission revolves around
+              simplifying the process for businesses to establish a professional
+              and impactful online presence, allowing them to concentrate on
+              their core competencies.
+              <br /><br />
+              Recognizing the distinctiveness inherent in every business, we
+              prioritize active listening. We invest time in understanding our
+              clients' aspirations and objectives. This understanding forms the
+              foundation upon which we collaboratively craft tailored solutions
+              that align with their specific requirements and financial needs.
+              <br /><br />
+              Our commitment to transparent communication is unwavering. We
+              maintain an open line of dialogue and clarity from the initial
+              consultation to the final delivery. Throughout this journey, we
+              ensure our clients are well-informed, enabling them to actively
+              participate and provide input.
+              <br /><br />
+              Whether you're envisioning a compelling landing page or a
+              comprehensive website, we are dedicated to assisting you in
+              realizing your objectives. Partner with us, and let's elevate your
+              business to new heights together.
+            </p>
+          </div>
+          <div
+            class="col d-none d-lg-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              alt="Inside the FT8 Workspace - Innovating Web Design"
+              class="about-image rounded img-fluid"
+              src="assets/img/microsoft-edge-Px0X7g1mc8k-unsplash.jpg"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      id="why-website"
+      class="why-website-section"
+      style="background-color: #2a8cc9"
+      data-bs-smooth-scroll="true"
+      data-bs-target="#navcol-5"
+    >
+      <div class="container shadow bg-white">
+        <div class="section-heading text-center">Why You Need a Website?</div>
+        <div class="row feature-row">
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-eye" aria-hidden="true"></i> Enhance Your
+              Visibility
+            </h2>
+            <p>
+              A website extends your business's reach to anyone, anywhere, at
+              any time. By having an online presence, you significantly boost
+              your visibility, making it easier to attract new customers.
+            </p>
+          </div>
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-bolt" aria-hidden="true"></i> Boost Lead
+              Generation and Sales
+            </h2>
+            <p>
+              Websites serve as powerful tools to generate leads and drive
+              sales. They offer customers a convenient platform to learn about
+              your business, make purchases, and reach out for more information,
+              thereby increasing your potential for conversions.
+            </p>
+          </div>
+        </div>
+        <div class="row feature-row">
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-bold" aria-hidden="true"></i> Establish a Distinct
+              Brand Identity
+            </h2>
+            <p>
+              A website acts as a canvas to showcase your brand and its
+              offerings. It's an invaluable tool for setting your business apart
+              from competitors and conveying your unique value proposition.
+            </p>
+          </div>
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-line-chart" aria-hidden="true"></i> Enhance
+              Customer Service
+            </h2>
+            <p>
+              Websites enhance customer service by providing a central hub where
+              clients can access vital information about your business. This
+              accessibility allows customers to effortlessly reach out with
+              inquiries or concerns, fostering a positive customer experience.
+            </p>
+          </div>
+        </div>
+        <div class="row feature-row">
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-shield" aria-hidden="true"></i> Cultivate Trust
+              with Customers
+            </h2>
+            <p>
+              A professionally designed website instills confidence in potential
+              customers. It provides comprehensive information about your
+              business, showcasing your expertise and reliability, which in turn
+              builds trust and credibility.
+            </p>
+          </div>
+          <div class="col feature-col">
+            <h2>
+              <i class="fa fa-trophy" aria-hidden="true"></i> Stay Ahead in the
+              Digital Landscape
+            </h2>
+            <p>
+              In the digital era, a website is fundamental for businesses aiming
+              to stay ahead of the competition and broaden their audience reach.
+              It's an indispensable tool for remaining competitive and adapting
+              to the evolving digital landscape.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <p class="section-text" style="text-align: center">
+              We take care of everything, so you don't need to worry about
+              creating and managing your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</body>
+    <section
+      id="our-process"
+      class="our-process-section bg-white"
+      data-bs-target="#navcol-5"
+    >
+      <div class="container shadow bg-light" style="padding-bottom: 10px">
+        <div class="section-heading text-center">The Process</div>
+        <p class="section-subtitle text-center">
+          The process of bringing your website to life
+        </p>
+        <!-- Step 1: Contact with Us -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">1</div>
+          <div class="step-content">
+            <h4>Contact with Us</h4>
+            <p>
+              Let us know what you want your website to achieve, and we'll
+              create a custom plan for you.
+            </p>
+          </div>
+        </div>
 
+        <!-- Step 2: Receive Offer -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">2</div>
+          <div class="step-content">
+            <h4>Receive Offer</h4>
+            <p>
+              After receiving your message, we carefully review your
+              requirements and respond with a tailored offer that fits your
+              specific needs. We take the time to understand your business and
+              ensure that our offer reflects your goals and objectives.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Accept Offer -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">3</div>
+          <div class="step-content">
+            <h4>Accept Offer</h4>
+            <p>
+              Review our offer and determine if it meets your needs and
+              expectations.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4: Provide Information -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">4</div>
+          <div class="step-content">
+            <h4>Provide Information</h4>
+            <p>
+              After you have reviewed our offer and are satisfied with the
+              details, we begin the process of creating your website. During
+              this stage, we will ask you for more information about your
+              business to ensure that we accurately represent your brand and
+              meet your specific needs. We want to make sure that your website
+              fully reflects your vision and goals, and we will work closely
+              with you to achieve this.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5: Regular Updates -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">5</div>
+          <div class="step-content">
+            <h4>Regular Updates</h4>
+            <p>
+              We believe in open communication and collaboration throughout the
+              website creation process. That's why we will send you regular
+              updates on your website's progress and make sure to ask for your
+              feedback. Your input is crucial to help us create a website that
+              perfectly represents your business and meets your needs.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 6: Launch -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">6</div>
+          <div class="step-content">
+            <h4>Launch</h4>
+            <p>
+              We handle everything from start to finish, ensuring that your
+              website is built to your satisfaction. Once we complete the
+              website design and development process, we'll present you with the
+              final product. At this point, we'll work closely with you to make
+              any necessary changes to the website until you are fully satisfied
+              with the end result. Once we are both happy with the final
+              product, we'll launch your website and ensure that everything runs
+              smoothly.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 7: Celebrate -->
+        <div class="process-step border border-dark-subtle">
+          <div class="step-icon">7</div>
+          <div class="step-content">
+            <h4>Celebrate</h4>
+            <p>
+              Your website is officially live, and we're excited to share it
+              with the world. Thank you for trusting us with your online
+              presence, and let's raise a toast to your success!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="portfolio"
+      class="portfolio-section"
+      style="background-color: #2a8cc9"
+      data-bs-smooth-scroll="true"
+      data-bs-target="#navcol-5"
+    >
+      <div class="container bg-white">
+        <div class="section-heading text-center">
+          <h1 class="section-title">Our Portfolio</h1>
+          <p class="section-subtitle">Check Out Our Latest Projects</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/1.jpg"
+                class="card-img-top"
+                alt="Website 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 1</h5>
+                <p class="card-text">Description of Website 1.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/2.jpg"
+                class="card-img-top"
+                alt="Website 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 2</h5>
+                <p class="card-text">Description of Website 2.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/3.jpg"
+                class="card-img-top"
+                alt="Website 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 3</h5>
+                <p class="card-text">Description of Website 3.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/4.jpg"
+                class="card-img-top"
+                alt="Website 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 4</h5>
+                <p class="card-text">Description of Website 4.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/5.jpg"
+                class="card-img-top"
+                alt="Website 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 5</h5>
+                <p class="card-text">Description of Website 5.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+          <!-- Repeat similar structure for other websites -->
+          <div class="col-lg-4 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="portfolio-card text-center">
+              <img
+                src="assets/img/portfolio/6.jpg"
+                class="card-img-top"
+                alt="Website 6"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Website 6</h5>
+                <p class="card-text">Description of Website 6.</p>
+                <a href="#" class="btn btn-primary mb-3">View Website</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-padding bg-white">
+      <div class="container shadow bg-light">
+        <div class="row">
+          <div class="col">
+            <div class="section-heading">
+              <h1 class="section-title text-center">
+                Frequently Asked Questions
+              </h1>
+              <p class="section-subtitle text-center">
+                Find Answers to the Most Commonly Asked Questions
+              </p>
+            </div>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-1"
+                    aria-expanded="false"
+                    aria-controls="faq-1"
+                  >
+                    How long does it take to create a website?
+                  </button>
+                </h2>
+                <div
+                  id="faq-1"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    <p>
+                      Creating a website depends on various factors such as the
+                      number of pages, features, and design requirements. We'll
+                      work closely with you throughout the project and provide
+                      regular updates. While we can't give an exact timeframe,
+                      we'll deliver your website as soon as possible while
+                      maintaining quality.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-2"
+                    aria-expanded="false"
+                    aria-controls="faq-2"
+                  >
+                    What kind of websites do you create?
+                  </button>
+                </h2>
+                <div id="faq-2" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      We specialize in creating landing pages and websites for
+                      small to medium-sized businesses and personal websites. We
+                      can also work on custom projects depending on your needs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-3"
+                    aria-expanded="false"
+                    aria-controls="faq-3"
+                  >
+                    Do you offer website maintenance service?
+                  </button>
+                </h2>
+                <div id="faq-3" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      Yes, we offer website maintenance services to ensure your
+                      website is up to date and running smoothly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-4"
+                    aria-expanded="false"
+                    aria-controls="faq-4"
+                  >
+                    How much does it cost to create a website?
+                  </button>
+                </h2>
+                <div id="faq-4" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      Our pricing is customized based on factors like project
+                      complexity, business scale, and budget. We offer
+                      personalized and competitive pricing quotes tailored to
+                      your specific needs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-5"
+                    aria-expanded="false"
+                    aria-controls="faq-5"
+                  >
+                    What kind of support do you offer after the website is
+                    launched?
+                  </button>
+                </h2>
+                <div id="faq-5" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      We offer ongoing support after your website is launched,
+                      ensuring everything runs smoothly. We can also assist with
+                      updates or changes you want to make.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-6"
+                    aria-expanded="false"
+                    aria-controls="faq-6"
+                  >
+                    How do I get started with creating my website?
+                  </button>
+                </h2>
+                <div id="faq-6" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      You can get started by contacting us through our website
+                      or email. We'll guide you through the process and provide
+                      an offer for your website project.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-7"
+                    aria-expanded="false"
+                    aria-controls="faq-7"
+                  >
+                    How can I give feedback and make changes to my website?
+                  </button>
+                </h2>
+                <div id="faq-7" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p>
+                      You'll be able to preview your website, providing us with
+                      feedback and making any necessary changes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="text-white py-5">
+      <div class="container">
+        <h2 class="text-center">Contact Us</h2>
+        <p class="lead text-center">
+          If you have any questions or would like to discuss your project, feel
+          free to get in touch with us.
+        </p>
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-john-deere-green">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">
+        <p>&copy; 2023 FT8 Web Design</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

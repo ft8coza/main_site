@@ -1,0 +1,341 @@
+/* Import Bootstrap CSS */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+
+/* Custom Styles */
+
+/* Show it is fixed to the top */
+body {
+    min-height: 75rem;
+    padding-top: 3.5rem;
+  }
+  
+.container {
+    border-radius: 10px;
+}
+.accordion{
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* Header styles */
+header {
+    background-color: #3498db; /* Flat Blue */
+    color: #fff;
+    padding: 10px 0;
+}
+ 
+header h1 {
+    font-size: 36px;
+}
+
+header ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+header ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Hero Section styles */
+#hero {
+    background-color: #fff;
+    padding: 100px 0;
+    text-align: center;
+    background-image: url('assets/img/marvin-meyer-SYTO3xs06fU-unsplash.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    height: 100vh;
+}
+
+#hero h2 {
+    font-size: 36px;
+    color: #333; /* Dark text color */
+}
+
+#hero p {
+    font-size: 18px;
+    color: #555; /* Slightly darker text color */
+}
+
+#hero .btn {
+    background-color:  #3498db; /* Flat Blue */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#hero .btn:hover {
+    background-color: #e74c3c; /* Alizarin Red */
+}
+
+/* Services Section styles */
+#services {
+    background-color: #ecf0f1; /* Clouds */
+    padding: 100px;
+}
+
+.service {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.service h3 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Contact Section styles */
+#contact {
+    background-color: #3498db; /* Flat Blue */
+    color: #fff;
+    padding: 100px 0;
+}
+
+#contact p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+#contact label {
+    font-size: 18px;
+    color: #fff;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#contact .btn {
+    background-color: #e74c3c; /* Alizarin Red */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#contact .btn:hover {
+    background-color: #3498db; /* Flat Blue */
+}
+
+/* Footer styles */
+footer {
+    background-color: #2c3e50; /* Midnight Blue */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Additional Custom Styles */
+/* Add your additional custom styles here */
+#about-us {
+    background-color: #ecf0f1; /* Clouds */
+    padding: 100px 0;
+}
+
+.about-section {
+    text-align: center;
+}
+
+.section-heading {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.section-text {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+.about-image {
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#why-website {
+    background-color: #ffffff; /* White */
+    padding: 100px;
+    
+}
+
+.why-website-section .section-heading {
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #333;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.why-website-section h2 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.why-website-section p {
+    font-size: 18px;
+}
+
+/* Our Process Section styles */
+.our-process-section {
+    background-color: #ecf0f1; /* Clouds */
+    padding: 100px;
+}
+
+.our-process-section .section-heading {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.our-process-section .section-subtitle {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.process-step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.step-icon {
+    flex: 0 0 50px;
+    height: 50px;
+    background-color: #3498db; /* Flat Blue */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.step-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.step-content {
+    flex: 1;
+}
+
+/* Celebrate step icon color */
+.our-process-section .step-icon:last-child {
+    background-color: #2ecc71; /* Emerald Green */
+}
+
+/* Frequently Asked Questions Section */
+#faq {
+    background-color: #ecf0f1; /* Clouds */
+    padding: 100px 0;
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #555; /* Slightly darker text color */
+    margin-bottom: 50px;
+}
+
+
+.accordion-button:focus {
+    outline: none;
+}
+
+.accordion-content {
+    padding: 15px 0;
+    
+}
+
+/* Change the button background color on hover */
+.accordion-btn:hover {
+    background-color: #2ecc71; /* Emerald Green */
+}
+
+/* Change the button background color on active state */
+.accordion-btn.active {
+    background-color: #2ecc71; /* Emerald Green */
+}
+
+/* Change the text color of the active button */
+.accordion-btn.active {
+    color: #fff;
+}
+
+/* Portfolio Section Styles */
+#portfolio {
+    background-color: #fafafa; /* Light Gray */
+    padding: 80px 0;
+}
+
+.portfolio-card {
+    border: 1px solid #333; /* Darker border color */
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.portfolio-card:hover {
+    transform: scale(1.05);
+}
+
+.portfolio-card .card-title {
+    font-size: 24px;
+    margin-top: 10px;
+    color: #333; /* Dark text color */
+}
+
+.portfolio-card .card-text {
+    font-size: 16px;
+    color: #555; /* Slightly darker text color */
+}
+
+.portfolio-card .btn-primary {
+    margin-top: 20px;
+    background-color: #3498db; /* Flat Blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.portfolio-card .btn-primary:hover {
+    background-color: #2ecc71; /* Emerald Green */
+}
