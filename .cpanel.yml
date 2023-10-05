@@ -3,7 +3,6 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/ftcoza/public_html/
     - /bin/cp -R assets $DEPLOYPATH
-    - /bin/cp -R new_world $DEPLOYPATH
     - /bin/cp -R new_pro $DEPLOYPATH
     - /bin/cp *.* $DEPLOYPATH
     
