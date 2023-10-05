@@ -6,6 +6,10 @@
   --dark: #04000b;
 }
 
+body {
+  position: relative;
+}
+
 /*** Spinner ***/
 #spinner {
   opacity: 0;
