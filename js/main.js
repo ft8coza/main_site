@@ -91,6 +91,13 @@
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
     
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        target: '#navbarScroll'
+      })
+      const dataSpyList = document.querySelectorAll('[data-bs-spy="scroll"]')
+      dataSpyList.forEach(dataSpyEl => {
+        bootstrap.ScrollSpy.getInstance(dataSpyEl).refresh()
+      })
 
     
 })(jQuery);
