@@ -5,10 +5,10 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-    --primary: #408ec6;
-    --secondary: #fba504;
-    --light: #F6F4F9;
-    --dark: #04000B;
+  --primary: #408ec6;
+  --secondary: #fba504;
+  --light: #f6f4f9;
+  --dark: #04000b;
 
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -23,7 +23,7 @@
   --bs-white: #fff;
   --bs-gray: #6c757d;
   --bs-gray-dark: #343a40;
-  
+
   --bs-success: #198754;
   --bs-info: #0dcaf0;
   --bs-warning: #ffc107;
@@ -211,7 +211,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #4e1ba3;
+  color: var(--primary);
 }
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
@@ -582,7 +582,6 @@ progress {
   .container-lg,
   .container-xl,
   .container-xxl {
-    
   }
 }
 .row {
@@ -6624,8 +6623,8 @@ fieldset:disabled .btn {
   padding-bottom: 1.5rem !important;
 }
 .py-5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 .pt-0 {
   padding-top: 0 !important;
