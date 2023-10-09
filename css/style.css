@@ -555,3 +555,63 @@ h6,
 .footer .footer-menu a:hover {
   color: var(--secondary);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
+.process {
+  width: min(500px, 95vw);
+}
+.process_content {
+  padding-inline-start: 4rem;
+}
+.process_content h4 {
+  font-size: 2rem;
+  margin-block: 0.5rem;
+}
+.process_content {
+  position: relative;
+  padding: 1rem 1rem 1rem 4rem;
+  transition: background 0.3s ease-in-out;
+}
+.process_content h5 {
+  color:var(--primary);
+  font-size: 1rem;
+  margin-block: 0;
+}
+.process_content p {
+  color: var(--dark);
+  font-size: 0.9rem;
+  margin-block-start: 0.5rem;
+  margin-block-end: 0;
+}
+.process_content .year {
+  position: absolute;
+  content: var(--year);
+  width: 2rem;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: white;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  box-shadow: inset 0 0 0 1px white;
+  border: 1px solid var(--primary);
+  left: 1rem;
+  top: 0.74rem;
+}
+
+.process_content:not(:last-child):before {
+  position: absolute;
+  content: "";
+  width: 4px;
+  background-color: var(--primary);
+  left: calc(2rem - 2px);
+  top: 2.74rem;
+  bottom: -0.74rem;
+  z-index: 1;
+}
