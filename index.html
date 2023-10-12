@@ -9,13 +9,17 @@
     <meta property="og:url" content="https://FT8.co.za/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="FT8 Web Design Services" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+    <meta property="og:type" content="website" />
     <meta
       property="og:description"
       content="FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses."
     />
     <meta
       property="og:image"
-      content="https://FT8.co.za/assets/img/banner.webp"
+      content="https://FT8.co.za/assets/img/logo.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="FT8 Web Design Services" />
@@ -23,10 +27,7 @@
       name="twitter:description"
       content="FT8 specializes in creating custom landing pages and websites for small and medium-sized businesses."
     />
-    <meta
-      name="twitter:image"
-      content="https://FT8.co.za/assets/img/"
-    />
+    <meta name="twitter:image" content="https://FT8.co.za/assets/img/logo.jpg" />
     <meta
       name="keywords"
       content="FT8, Web Design, Small Business Websites, Custom Web Solutions, Landing Pages, Website Development, Business Branding, Web Maintenance, Hosting, Domain"
@@ -103,26 +104,26 @@
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
     ></script>
     <script type="text/javascript">
-      (function() {
+      (function () {
         // https://dashboard.emailjs.com/admin/account
         emailjs.init("WndIWoQwvUtGlvUKZ");
       })();
     </script>
     <script type="text/javascript">
-      window.onload = function() {
+      window.onload = function () {
         document
           .getElementById("contact-form")
-          .addEventListener("submit", function(event) {
+          .addEventListener("submit", function (event) {
             event.preventDefault();
             // these IDs from the previous steps
             emailjs.sendForm("ft8_smtp", "template_xr3f5qh", this).then(
-              function() {
+              function () {
                 console.log("SUCCESS!");
                 alert("Your mail is sent!");
 
                 location.reload();
               },
-              function(error) {
+              function (error) {
                 console.log("FAILED...", error);
                 alert("Your mail is not sent!");
               }
@@ -269,8 +270,7 @@
                 </div>
                 <h5 class="mb-3">Email and Website Hosting</h5>
                 <p class="m-0">
-                  We host your website to ensure maximum uptime
-                  and security
+                  We host your website to ensure maximum uptime and security
                 </p>
               </div>
             </div>
