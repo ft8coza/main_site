@@ -103,26 +103,26 @@
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
     ></script>
     <script type="text/javascript">
-      (function () {
+      (function() {
         // https://dashboard.emailjs.com/admin/account
         emailjs.init("WndIWoQwvUtGlvUKZ");
       })();
     </script>
     <script type="text/javascript">
-      window.onload = function () {
+      window.onload = function() {
         document
           .getElementById("contact-form")
-          .addEventListener("submit", function (event) {
+          .addEventListener("submit", function(event) {
             event.preventDefault();
             // these IDs from the previous steps
             emailjs.sendForm("ft8_smtp", "template_xr3f5qh", this).then(
-              function () {
+              function() {
                 console.log("SUCCESS!");
                 alert("Your mail is sent!");
 
                 location.reload();
               },
-              function (error) {
+              function(error) {
                 console.log("FAILED...", error);
                 alert("Your mail is not sent!");
               }
@@ -175,7 +175,7 @@
               <a href="#process" class="nav-item nav-link">Process</a>
               <a href="#projects" class="nav-item nav-link">Projects</a>
               <a href="#about" class="nav-item nav-link">About Us</a>
-              <a href="#team" class="nav-item nav-link">Our Team</a>
+              <!--<a href="#team" class="nav-item nav-link">Our Team</a>-->
               <!--   <div class="nav-item dropdown">
                 <a
                   href="#"
@@ -257,7 +257,7 @@
                 <h5 class="mb-3">Web Design</h5>
                 <p class="m-0">
                   We design modern and responsive websites tailored to your
-                  needs.
+                  needs
                 </p>
               </div>
             </div>
@@ -269,7 +269,8 @@
                 </div>
                 <h5 class="mb-3">Email and Website Hosting</h5>
                 <p class="m-0">
-                  We host your website to ensure maximum uptime and availability
+                  We host your website to ensure maximum uptime, availability
+                  and security
                 </p>
               </div>
             </div>
@@ -280,7 +281,7 @@
                 </div>
                 <h5 class="mb-3">Website Maintenance</h5>
                 <p class="m-0">
-                  We offer ongoing support and maintain you website
+                  We offer ongoing support and maintain your website
                 </p>
               </div>
             </div>
@@ -289,46 +290,6 @@
       </div>
       <!-- Service End -->
 
-      <!-- About Start -->
-      <div class="container-xxl py-5" id="about">
-        <div class="container py-5 px-lg-5">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6 wow Up" data-wow-delay="0.1s">
-              <p class="section-title text-secondary">
-                <span></span>About us<span></span>
-              </p>
-              <h1 class="mb-5">About Us</h1>
-              <p class="mb-4">
-                At FT8, we are driven by a passion for fostering the growth and
-                success of businesses. Our core mission revolves around
-                simplifying the process for businesses to establish a
-                professional and impactful online presence, allowing them to
-                concentrate on their core competencies.
-                <br /><br />
-                Recognizing the distinctiveness inherent in every business, we
-                prioritize active listening. We invest time in understanding our
-                clients' aspirations and objectives. This understanding forms
-                the foundation upon which we collaboratively craft tailored
-                solutions that align with their specific requirements and
-                financial needs.
-                <br /><br />
-                Whether you're envisioning a compelling landing page or a
-                comprehensive website, we are dedicated to assisting you in
-                realizing your objectives. Partner with us, and let's elevate
-                your business to new heights together.
-              </p>
-            </div>
-            <div class="col-lg-6 mobile_hidden">
-              <img
-                class="img-fluid wow zoomIn"
-                data-wow-delay="0.5s"
-                src="img/microsoft-edge-Px0X7g1mc8k-unsplash.jpg"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- About End -->
       <!--Why you need a website-->
       <div class="container-xxl py-5" id="why">
         <div class="container py-5 px-lg-5">
@@ -338,6 +299,7 @@
             </p>
             <h1 class="text-center mb-5">Why should you get a website?</h1>
           </div>
+
           <div class="row feature-row">
             <div class="col col-1">
               <h2>
@@ -437,16 +399,60 @@
               </p>
             </div>
           </div>
-          <div class="row">
-            <div class="col text-center">
-              <h4 class="section-text" style="text-align: center">
-                We take care of everything, so you don't need to worry about
-                creating and managing your website.
-              </h4>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <h5 class="section-text" style="text-align: center">
+              We take care of everything, so you don't need to worry about
+              creating and managing your website.
+            </h5>
+          </div>
+        </div>
+      </div>
+      <!-- Facts Start -->
+      <div
+        class="container-xxl bg-primary fact py-5 wow Up"
+        data-wow-delay="0.1s"
+        id="facts"
+      >
+        <div class="container py-5 px-lg-5">
+          <div class="row g-4">
+            <div
+              class="col-md-6 col-lg-3 text-center wow"
+              data-wow-delay="0.1s"
+            >
+              <i class="fa fa-certificate fa-3x text-secondary mb-3"></i>
+              <h1 class="text-white mb-2" data-toggle="counter-up">10</h1>
+              <p class="text-white mb-0">Years Experience</p>
+            </div>
+            <div
+              class="col-md-6 col-lg-3 text-center wow"
+              data-wow-delay="0.3s"
+            >
+              <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
+              <h1 class="text-white mb-2" data-toggle="counter-up">2</h1>
+              <p class="text-white mb-0">Team Members</p>
+            </div>
+            <div
+              class="col-md-6 col-lg-3 text-center wow"
+              data-wow-delay="0.5s"
+            >
+              <i class="fa fa-users fa-3x text-secondary mb-3"></i>
+              <h1 class="text-white mb-2" data-toggle="counter-up">20</h1>
+              <p class="text-white mb-0">Satisfied Clients</p>
+            </div>
+            <div
+              class="col-md-6 col-lg-3 text-center wow"
+              data-wow-delay="0.7s"
+            >
+              <i class="fa fa-check fa-3x text-secondary mb-3"></i>
+              <h1 class="text-white mb-2" data-toggle="counter-up">25</h1>
+              <p class="text-white mb-0">Complete Projects</p>
             </div>
           </div>
         </div>
       </div>
+      <!-- Facts End -->
       <!--our process-->
       <div class="container-xxl py-5" id="process">
         <div class="container py-5 px-lg-5">
@@ -465,7 +471,7 @@
             <h5>Contact Us</h5>
             <span class="year">1</span>
             <p>
-              Let us know what you want your website to achieve, and we'll begin
+              Let us know what you want your website to achieve and we'll begin
               to create a custom plan for you.
             </p>
           </div>
@@ -521,58 +527,13 @@
               We handle everything from start to finish, ensuring that your
               website is built to your satisfaction. Once we complete the
               website design and development process, we'll present you with the
-              final product. Then we are both happy with the final product,
+              final product. When we are both happy with the final product,
               we'll launch your website and ensure that everything runs
               smoothly. Time for the celebratory sparkling wine!
             </p>
           </div>
         </div>
       </div>
-      <!-- Facts Start -->
-      <div
-        class="container-xxl bg-primary fact py-5 wow Up"
-        data-wow-delay="0.1s"
-        id="facts"
-      >
-        <div class="container py-5 px-lg-5">
-          <div class="row g-4">
-            <div
-              class="col-md-6 col-lg-3 text-center wow"
-              data-wow-delay="0.1s"
-            >
-              <i class="fa fa-certificate fa-3x text-secondary mb-3"></i>
-              <h1 class="text-white mb-2" data-toggle="counter-up">10</h1>
-              <p class="text-white mb-0">Years Experience</p>
-            </div>
-            <div
-              class="col-md-6 col-lg-3 text-center wow"
-              data-wow-delay="0.3s"
-            >
-              <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
-              <h1 class="text-white mb-2" data-toggle="counter-up">2</h1>
-              <p class="text-white mb-0">Team Members</p>
-            </div>
-            <div
-              class="col-md-6 col-lg-3 text-center wow"
-              data-wow-delay="0.5s"
-            >
-              <i class="fa fa-users fa-3x text-secondary mb-3"></i>
-              <h1 class="text-white mb-2" data-toggle="counter-up">20</h1>
-              <p class="text-white mb-0">Satisfied Clients</p>
-            </div>
-            <div
-              class="col-md-6 col-lg-3 text-center wow"
-              data-wow-delay="0.7s"
-            >
-              <i class="fa fa-check fa-3x text-secondary mb-3"></i>
-              <h1 class="text-white mb-2" data-toggle="counter-up">25</h1>
-              <p class="text-white mb-0">Complete Projects</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Facts End -->
-
       <!-- Projects Start -->
       <div class="container-xxl py-5" id="projects">
         <div class="container py-5 px-lg-5">
@@ -1019,6 +980,46 @@
         </div>
       </div>
       <!-- faq end -->
+      <!-- About Start -->
+      <div class="container-xxl py-5" id="about">
+        <div class="container py-5 px-lg-5">
+          <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow Up" data-wow-delay="0.1s">
+              <p class="section-title text-secondary">
+                <span></span>About us<span></span>
+              </p>
+              <h1 class="mb-5">About Us</h1>
+              <p class="mb-4">
+                At FT8, we are driven by a passion for fostering the growth and
+                success of businesses. Our core mission revolves around
+                simplifying the process for businesses to establish a
+                professional and impactful online presence, allowing them to
+                concentrate on their core competencies.
+                <br /><br />
+                Recognizing the distinctiveness inherent in every business, we
+                prioritize active listening. We invest time in understanding our
+                clients' aspirations and objectives. This understanding forms
+                the foundation upon which we collaboratively craft tailored
+                solutions that align with their specific requirements and
+                financial needs.
+                <br /><br />
+                Whether you're envisioning a compelling landing page or a
+                comprehensive website, we are dedicated to assisting you in
+                realizing your objectives. Partner with us, and let's elevate
+                your business to new heights together.
+              </p>
+            </div>
+            <div class="col-lg-6 mobile_hidden">
+              <img
+                class="img-fluid wow zoomIn"
+                data-wow-delay="0.5s"
+                src="img/microsoft-edge-Px0X7g1mc8k-unsplash.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- About End -->
       <!-- Contact Start -->
       <div
         class="container-xxl bg-primary newsletter py-5 wow Up"
@@ -1034,7 +1035,7 @@
             <div class="col-lg-7">
               <div class="wow Up" data-wow-delay="0.3s">
                 <p class="text-white mb-4">
-                  Get in touch so that we can elevate your online presence and
+                  Get in touch so we can elevate your online presence and
                   enhance your digital capabilities.
                 </p>
                 <form id="contact-form">
@@ -1105,52 +1106,52 @@
         </div>
       </div>
       <!-- Contact End -->
-  <!-- Team Start -->
-  <div class="container-xxl py-5" id="team">
-    <div class="container py-5 px-lg-5">
-      <div class="wow Up" data-wow-delay="0.1s">
-        <p class="section-title text-secondary justify-content-center">
-          <span></span>Our Team<span></span>
-        </p>
-        <h1 class="text-center mb-5">Our Team Members</h1>
-      </div>
-      <div class="row g-4">
-        <div class="col-lg-6 col-md-6 wow Up" data-wow-delay="0.3s">
-          <div class="team-item bg-light rounded">
-            <div class="text-center border-bottom p-4">
-              <img
-                class="img-fluid rounded-circle mb-4"
-                src="img/elri-pixel.jpg"
-                alt=""
-              />
-              <h5>Elri</h5>
-              <span>Web Designer & Sales</span>
-            </div>
-            <div class="d-flex justify-content-center p-4">
-              <a
-                class="btn btn-square mx-1"
-                href="https://web.facebook.com/elri.vandermerwe.3"
-                target="_blank"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-             <!-- <a class="btn btn-square mx-1" href=""
+      <!-- Team Start -->
+      <div class="container-xxl py-5" id="team">
+        <div class="container py-5 px-lg-5">
+          <div class="wow Up" data-wow-delay="0.1s">
+            <p class="section-title text-secondary justify-content-center">
+              <span></span>Our Team<span></span>
+            </p>
+            <h1 class="text-center mb-5">Our Team Members</h1>
+          </div>
+          <div class="row g-4">
+            <div class="col-lg-6 col-md-6 wow Up" data-wow-delay="0.3s">
+              <div class="team-item bg-light rounded">
+                <div class="text-center border-bottom p-4">
+                  <img
+                    class="img-fluid rounded-circle mb-4"
+                    src="img/elri-pixel.jpg"
+                    alt=""
+                  />
+                  <h5>Elri</h5>
+                  <span>Web Designer & Sales</span>
+                </div>
+                <div class="d-flex justify-content-center p-4">
+                  <a
+                    class="btn btn-square mx-1"
+                    href="https://web.facebook.com/elri.vandermerwe.3"
+                    target="_blank"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <!-- <a class="btn btn-square mx-1" href=""
                 ><i class="fab fa-twitter"></i
               ></a>-->
-              <a
-                class="btn btn-square mx-1"
-                href="https://www.instagram.com/elri87/"
-                target="_blank"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a
-                class="btn btn-square mx-1"
-                href="https://www.linkedin.com/in/elrivdmerwe/"
-                target="_blank"
-                ><i class="fab fa-linkedin-in"></i
-              ></a>
+                  <a
+                    class="btn btn-square mx-1"
+                    href="https://www.instagram.com/elri87/"
+                    target="_blank"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a
+                    class="btn btn-square mx-1"
+                    href="https://www.linkedin.com/in/elrivdmerwe/"
+                    target="_blank"
+                    ><i class="fab fa-linkedin-in"></i
+                  ></a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
             <div class="col-lg-6 col-md-6 wow Up" data-wow-delay="0.1s">
               <div class="team-item bg-light rounded">
@@ -1167,7 +1168,7 @@
                   <a class="btn btn-square mx-1" href=""
                     ><i class="fab fa-facebook-f"></i
                   ></a>
-                <!--  <a class="btn btn-square mx-1" href=""
+                  <!--  <a class="btn btn-square mx-1" href=""
                     ><i class="fab fa-twitter"></i
                   ></a>-->
                   <a class="btn btn-square mx-1" href=""
